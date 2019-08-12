@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://bluekyzhao.github.io">
-  <title>blueky的个人网站</title>
+  <title>逻辑回归-乳腺癌实例 | blueky的个人网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="blueky的个人网站">
-<meta property="og:url" content="https://bluekyzhao.github.io/index.html">
+  <meta name="description" content="算法原理参见各种书本，这里记录一下实战。 逻辑回归用于分类的机器学习算法，输出的是0-1之间的离散值，这是与线性回归的最大区别。 背景根据乳腺癌病灶造影图片，预测病人是否患病。 sklearn中自带的数据集有569个样本，每个样本有30个属性。属性使用cancer.feature_names查看。 探索数据12345678910111213from sklearn.datasets import">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逻辑回归-乳腺癌实例">
+<meta property="og:url" content="https://bluekyzhao.github.io/2019/08/12/逻辑回归-乳腺癌实例/index.html">
 <meta property="og:site_name" content="blueky的个人网站">
+<meta property="og:description" content="算法原理参见各种书本，这里记录一下实战。 逻辑回归用于分类的机器学习算法，输出的是0-1之间的离散值，这是与线性回归的最大区别。 背景根据乳腺癌病灶造影图片，预测病人是否患病。 sklearn中自带的数据集有569个样本，每个样本有30个属性。属性使用cancer.feature_names查看。 探索数据12345678910111213from sklearn.datasets import">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-08-12T04:05:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="blueky的个人网站">
+<meta name="twitter:title" content="逻辑回归-乳腺癌实例">
+<meta name="twitter:description" content="算法原理参见各种书本，这里记录一下实战。 逻辑回归用于分类的机器学习算法，输出的是0-1之间的离散值，这是与线性回归的最大区别。 背景根据乳腺癌病灶造影图片，预测病人是否患病。 sklearn中自带的数据集有569个样本，每个样本有30个属性。属性使用cancer.feature_names查看。 探索数据12345678910111213from sklearn.datasets import">
   
     <link rel="alternative" href="/atom.xml" title="blueky的个人网站" type="application/atom+xml">
   
@@ -150,16 +154,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-逻辑回归-乳腺癌实例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-逻辑回归-乳腺癌实例" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/12/逻辑回归-乳腺癌实例/">逻辑回归-乳腺癌实例</a>
+    <h1 class="article-title" itemprop="name">
+      逻辑回归-乳腺癌实例
     </h1>
   
 
@@ -201,6 +203,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -208,16 +231,65 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/12/逻辑回归-乳腺癌实例/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://bluekyzhao.github.io/2019/08/12/逻辑回归-乳腺癌实例/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -237,8 +309,14 @@
 
 
 
+  
+  
+  
 
   
+
+  
+
   
 
 
@@ -261,8 +339,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
