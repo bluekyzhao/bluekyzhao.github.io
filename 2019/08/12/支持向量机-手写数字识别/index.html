@@ -17,7 +17,7 @@
 <meta property="og:description" content="手写数字识别，入门级的例子。用 svm 来运行一下。">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://bluekyzhao.github.io/2019/08/12/支持向量机-手写数字识别/digits.png">
-<meta property="og:updated_time" content="2019-08-12T07:12:13.000Z">
+<meta property="og:updated_time" content="2019-08-12T07:17:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支持向量机-手写数字识别">
 <meta name="twitter:description" content="手写数字识别，入门级的例子。用 svm 来运行一下。">
@@ -187,6 +187,13 @@
 <p>运行结果：</p>
 <img src="/2019/08/12/支持向量机-手写数字识别/digits.png">
 
+<h2 id="向量机分类"><a href="#向量机分类" class="headerlink" title="向量机分类"></a>向量机分类</h2><p>此处只是个引子，svm原理 和 里面的参数，后面再做详细介绍。此处有个印象就好。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="keyword">from</span> sklearn.externals <span class="keyword">import</span> joblib</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切割数据</span></span><br><span class="line">xtrain,xtest,ytrain,ytest = train_test_split(digits.data,digits.target,test_size=<span class="number">0.2</span>,random_state=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">print(xtrain.shape, ytrain.shape)</span><br><span class="line">print(xtest.shape, ytest.shape)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 用高斯核函数,需要指定gamma 和 C 参数。</span></span><br><span class="line">clf = svm.SVC(gamma=<span class="number">0.001</span>,C=<span class="number">1</span>)</span><br><span class="line">clf.fit(xtrain,ytrain)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'训练集准确率：'</span>,clf.score(xtrain,ytrain))</span><br><span class="line">print(<span class="string">'测试集准确率：'</span>,clf.score(xtest,ytest))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 模型的保存和重载</span></span><br><span class="line">joblib.dump(clf,<span class="string">'clf.pkl'</span>)</span><br><span class="line">clf = joblib.load(<span class="string">'clf.pkl'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<p>测试集上有 98% 的准确率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(1437, 64) (1437,)</span><br><span class="line">(360, 64) (360,)</span><br><span class="line">训练集准确率： 0.9986082115518441</span><br><span class="line">测试集准确率： 0.9805555555555555</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -320,7 +327,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#支持向量机"><span class="toc-number">1.</span> <span class="toc-text">支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#探索数据"><span class="toc-number">1.2.</span> <span class="toc-text">探索数据</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#支持向量机"><span class="toc-number">1.</span> <span class="toc-text">支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#探索数据"><span class="toc-number">1.2.</span> <span class="toc-text">探索数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向量机分类"><span class="toc-number">1.3.</span> <span class="toc-text">向量机分类</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
