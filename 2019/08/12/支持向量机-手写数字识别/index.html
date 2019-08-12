@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://bluekyzhao.github.io">
-  <title>逻辑回归-乳腺癌实例 | blueky的个人网站</title>
+  <title>支持向量机-手写数字识别 | blueky的个人网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="算法原理参见各种书本，这里记录一下实战。">
-<meta name="keywords" content="机器学习，sklearn，逻辑回归">
+  <meta name="description" content="手写数字识别，入门级的例子。用 svm 来运行一下。">
+<meta name="keywords" content="机器学习，sklearn, 支持向量机。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="逻辑回归-乳腺癌实例">
-<meta property="og:url" content="https://bluekyzhao.github.io/2019/08/12/逻辑回归-乳腺癌实例/index.html">
+<meta property="og:title" content="支持向量机-手写数字识别">
+<meta property="og:url" content="https://bluekyzhao.github.io/2019/08/12/支持向量机-手写数字识别/index.html">
 <meta property="og:site_name" content="blueky的个人网站">
-<meta property="og:description" content="算法原理参见各种书本，这里记录一下实战。">
+<meta property="og:description" content="手写数字识别，入门级的例子。用 svm 来运行一下。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-12T05:47:35.000Z">
+<meta property="og:image" content="https://bluekyzhao.github.io/2019/08/12/支持向量机-手写数字识别/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA-%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/digits.png">
+<meta property="og:updated_time" content="2019-08-12T06:58:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逻辑回归-乳腺癌实例">
-<meta name="twitter:description" content="算法原理参见各种书本，这里记录一下实战。">
+<meta name="twitter:title" content="支持向量机-手写数字识别">
+<meta name="twitter:description" content="手写数字识别，入门级的例子。用 svm 来运行一下。">
+<meta name="twitter:image" content="https://bluekyzhao.github.io/2019/08/12/支持向量机-手写数字识别/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA-%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/digits.png">
   
     <link rel="alternative" href="/atom.xml" title="blueky的个人网站" type="application/atom+xml">
   
@@ -155,53 +157,33 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-逻辑回归-乳腺癌实例" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-支持向量机-手写数字识别" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      逻辑回归-乳腺癌实例
+      支持向量机-手写数字识别
     </h1>
   
 
         
-        <a href="/2019/08/12/逻辑回归-乳腺癌实例/" class="archive-article-date">
-  	<time datetime="2019-08-12T03:17:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
+        <a href="/2019/08/12/支持向量机-手写数字识别/" class="archive-article-date">
+  	<time datetime="2019-08-12T06:29:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>算法原理参见各种书本，这里记录一下实战。</p>
+        <p>手写数字识别，入门级的例子。用 svm 来运行一下。</p>
 <a id="more"></a>
 
-<h1 id="逻辑回归"><a href="#逻辑回归" class="headerlink" title="逻辑回归"></a>逻辑回归</h1><p>用于分类的机器学习算法，输出的是0-1之间的离散值，这是与线性回归的最大区别。</p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>根据乳腺癌病灶造影图片，预测病人是否患病。</p>
-<p>sklearn中自带的数据集有569个样本，每个样本有30个属性。属性使用cancer.feature_names查看。</p>
-<h2 id="探索数据"><a href="#探索数据" class="headerlink" title="探索数据"></a>探索数据</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_breast_cancer</span><br><span class="line"><span class="keyword">from</span> pprint <span class="keyword">import</span> pprint</span><br><span class="line"></span><br><span class="line">cancer = load_breast_cancer()</span><br><span class="line"></span><br><span class="line">X = cancer.data  <span class="comment"># 每行一个样本，每行中的30个数字表示特征情况。</span></span><br><span class="line">Y = cancer.target <span class="comment"># 最后是阳性还是阴性？</span></span><br><span class="line"></span><br><span class="line">pprint(X.shape)</span><br><span class="line">pprint(Y.shape)</span><br><span class="line">pprint(X)</span><br><span class="line">pprint(Y)</span><br><span class="line">pprint(cancer.feature_names)</span><br></pre></td></tr></table></figure>
+<h1 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">digits = datasets.load_digits()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 探索数据</span></span><br><span class="line">images = digits[<span class="string">'images'</span>] <span class="comment"># 图片</span></span><br><span class="line">data = digits[<span class="string">'data'</span>] <span class="comment"># 清晰图片，得到的数据</span></span><br><span class="line">targets = digits[<span class="string">'target'</span>] <span class="comment"># 对应的正确数字</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">16</span>,<span class="number">10</span>))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">16</span>):</span><br><span class="line">    plt.subplot(<span class="number">4</span>,<span class="number">4</span>,i+<span class="number">1</span>)</span><br><span class="line">    plt.imshow(images[i])</span><br><span class="line">    plt.title(targets[i])</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line">print(data.shape)</span><br><span class="line">data</span><br></pre></td></tr></table></figure>
 
-<p>结果如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">(569, 30)</span><br><span class="line">(569,)</span><br><span class="line">array([[1.799e+01, 1.038e+01, 1.228e+02, ..., 2.654e-01, 4.601e-01,</span><br><span class="line">        1.189e-01],</span><br><span class="line">       [2.057e+01, 1.777e+01, 1.329e+02, ..., 1.860e-01, 2.750e-01,</span><br><span class="line">        8.902e-02],</span><br><span class="line">       [1.969e+01, 2.125e+01, 1.300e+02, ..., 2.430e-01, 3.613e-01,</span><br><span class="line">        8.758e-02],</span><br><span class="line">       ...,</span><br><span class="line">       [1.660e+01, 2.808e+01, 1.083e+02, ..., 1.418e-01, 2.218e-01,</span><br><span class="line">        7.820e-02],</span><br><span class="line">       [2.060e+01, 2.933e+01, 1.401e+02, ..., 2.650e-01, 4.087e-01,</span><br><span class="line">        1.240e-01],</span><br><span class="line">       [7.760e+00, 2.454e+01, 4.792e+01, ..., 0.000e+00, 2.871e-01,</span><br><span class="line">        7.039e-02]])</span><br><span class="line">array([0, 0, 0, …… 0, 0, 1])</span><br><span class="line">array([&apos;mean radius&apos;, &apos;mean texture&apos;, &apos;mean perimeter&apos;, &apos;mean area&apos;,</span><br><span class="line">       &apos;mean smoothness&apos;, &apos;mean compactness&apos;, &apos;mean concavity&apos;,</span><br><span class="line">       &apos;mean concave points&apos;, &apos;mean symmetry&apos;, &apos;mean fractal dimension&apos;,</span><br><span class="line">       &apos;radius error&apos;, &apos;texture error&apos;, &apos;perimeter error&apos;, &apos;area error&apos;,</span><br><span class="line">       &apos;smoothness error&apos;, &apos;compactness error&apos;, &apos;concavity error&apos;,</span><br><span class="line">       &apos;concave points error&apos;, &apos;symmetry error&apos;,</span><br><span class="line">       &apos;fractal dimension error&apos;, &apos;worst radius&apos;, &apos;worst texture&apos;,</span><br><span class="line">       &apos;worst perimeter&apos;, &apos;worst area&apos;, &apos;worst smoothness&apos;,</span><br><span class="line">       &apos;worst compactness&apos;, &apos;worst concavity&apos;, &apos;worst concave points&apos;,</span><br><span class="line">       &apos;worst symmetry&apos;, &apos;worst fractal dimension&apos;], dtype=&apos;&lt;U23&apos;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="逻辑回归分类"><a href="#逻辑回归分类" class="headerlink" title="逻辑回归分类"></a>逻辑回归分类</h2><h3 id="基本模型"><a href="#基本模型" class="headerlink" title="基本模型"></a>基本模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切割数据集，把 20% 的数据作为测试集</span></span><br><span class="line">xtrain,xtest,ytrain,ytest = train_test_split(X,Y,test_size = <span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line">model = LogisticRegression()</span><br><span class="line">model.fit(xtrain,ytrain)  <span class="comment"># 训练</span></span><br><span class="line"></span><br><span class="line">train_score = model.score(xtrain,ytrain) <span class="comment"># 训练集上测试分数</span></span><br><span class="line">test_score = model.score(xtest,ytest)   <span class="comment"># 测试集上测试分数</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print( <span class="string">'train_score'</span>,train_score)</span><br><span class="line">print(<span class="string">'test_score'</span>,test_score)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用模型在在测试集上做预测，然后和实际情况对比。</span></span><br><span class="line">y_pred = model.predict(xtest)</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br><span class="line">pprint(Counter(np.equal(y_pred,ytest)))</span><br></pre></td></tr></table></figure>
-
-<p>结果如下：</p>
-<p>准确率在0.95-0.96</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">train_score 0.9538461538461539</span><br><span class="line">test_score 0.9649122807017544</span><br><span class="line">Counter(&#123;True: 110, False: 4&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="模型优化"><a href="#模型优化" class="headerlink" title="模型优化"></a>模型优化</h3><p>正则化，本质是惩罚</p>
-<p>sklearn里面创建回归模型时候，参数penalty取值有l1,l2 。表示两种正则项的形式。</p>
-<p>l1 范式 会让模型参数稀疏化。 （特征为0 尽量多，借此排除掉对预测值无影响的特征）</p>
-<p>L2 会让所有特征对预测值有少量贡献，避免过拟合。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> PolynomialFeatures</span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用pipeline管道，把多项式 和 建模 封装起来。degree表示多项式的阶数。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">progress_model</span><span class="params">(degree = <span class="number">1</span>, **kwarg)</span>:</span></span><br><span class="line">    polynomial_features = PolynomialFeatures(degree=degree,include_bias=<span class="literal">False</span>)</span><br><span class="line">    losigtic_regression = LogisticRegression(**kwarg)</span><br><span class="line">    pipe = Pipeline([(<span class="string">'polynomial_features'</span>,polynomial_features),(<span class="string">'losigtic_regression'</span>,losigtic_regression)])</span><br><span class="line">    <span class="keyword">return</span> pipe </span><br><span class="line">    </span><br><span class="line">new_model = progress_model(<span class="number">2</span>,penalty=<span class="string">'l1'</span>)</span><br><span class="line"></span><br><span class="line">new_model.fit(xtrain,ytrain)</span><br><span class="line"></span><br><span class="line">train_score = new_model.score(xtrain,ytrain)</span><br><span class="line">test_score = new_model.score(xtest,ytest)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'train_score'</span>,train_score)</span><br><span class="line">print(<span class="string">'test_score'</span>,test_score)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模型的coef_属性，保存了模型参数。</span></span><br><span class="line">lr = new_model.named_steps[<span class="string">'losigtic_regression'</span>]</span><br><span class="line">print(<span class="string">'输入特征共有：'</span>,lr.coef_.shape[<span class="number">1</span>])</span><br><span class="line">print(<span class="string">'有效的特征有：'</span>,np.count_nonzero(lr.coef_))</span><br></pre></td></tr></table></figure>
-
-<p>结果：</p>
-<p>准确度超过 97 %</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_score 1.0</span><br><span class="line">test_score 0.9736842105263158</span><br><span class="line">输入特征共有： 495</span><br><span class="line">有效的特征有： 92</span><br></pre></td></tr></table></figure>
-
+<p>运行结果：</p>
+<p><img src="%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA-%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB/digits.png" alt="digits"></p>
 
       
 
@@ -236,7 +218,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">机器学习，sklearn，逻辑回归</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">机器学习，sklearn, 支持向量机。</a>
         		</li>
       		
 		</ul>
@@ -292,7 +274,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://bluekyzhao.github.io/2019/08/12/逻辑回归-乳腺癌实例/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://bluekyzhao.github.io/2019/08/12/支持向量机-手写数字识别/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -306,15 +288,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/12/支持向量机-手写数字识别/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          支持向量机-手写数字识别
-        
-      </div>
-    </a>
   
+    <a href="/2019/08/12/逻辑回归-乳腺癌实例/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">逻辑回归-乳腺癌实例</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -339,7 +317,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归"><span class="toc-number">1.</span> <span class="toc-text">逻辑回归</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-number">1.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#探索数据"><span class="toc-number">1.2.</span> <span class="toc-text">探索数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逻辑回归分类"><span class="toc-number">1.3.</span> <span class="toc-text">逻辑回归分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本模型"><span class="toc-number">1.3.1.</span> <span class="toc-text">基本模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模型优化"><span class="toc-number">1.3.2.</span> <span class="toc-text">模型优化</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#支持向量机"><span class="toc-number">1.</span> <span class="toc-text">支持向量机</span></a></li></ol>
                     </div>
                 </span>
             </div>
